@@ -6,6 +6,7 @@ Custom configuration for [Claude Code](https://docs.anthropic.com/en/docs/claude
 
 - `settings.json` - Global settings, permissions, hooks, plugins
 - `CLAUDE.md` - Global instructions for Claude behavior
+- `hooks/ghostty-notify.sh` - Ghostty notification script with click-to-focus
 
 ## Quick Setup
 
@@ -13,6 +14,9 @@ Custom configuration for [Claude Code](https://docs.anthropic.com/en/docs/claude
 # Copy to ~/.claude/
 cp settings.json ~/.claude/settings.json
 cp CLAUDE.md ~/.claude/CLAUDE.md
+mkdir -p ~/.claude/hooks
+cp hooks/ghostty-notify.sh ~/.claude/hooks/
+chmod +x ~/.claude/hooks/ghostty-notify.sh
 ```
 
 ## My Configuration
@@ -29,18 +33,21 @@ cp CLAUDE.md ~/.claude/CLAUDE.md
 
 ### Hooks
 
-**Notification Sound** - plays ping on notifications:
+**Ghostty Desktop Notifications** - OSC 9 notification with click-to-focus + audio:
 ```json
 {
   "Notification": [{
     "matcher": "",
     "hooks": [{
       "type": "command",
-      "command": "afplay /System/Library/Sounds/Ping.aiff"
+      "command": "~/.claude/hooks/ghostty-notify.sh",
+      "timeout": 5
     }]
   }]
 }
 ```
+
+The script (`hooks/ghostty-notify.sh`) uses OSC 9 escape sequences for native Ghostty notifications. Clicking the notification focuses the terminal window. Falls back to audio-only if not in Ghostty.
 
 ### Permissions
 

@@ -6,7 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Ping.aiff"
+            "command": "~/.claude/hooks/ghostty-notify.sh",
+            "timeout": 5
           }
         ]
       }
