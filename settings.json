@@ -1,0 +1,58 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "afplay /System/Library/Sounds/Ping.aiff"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(make :*)",
+      "Bash(docker :*)",
+      "Bash(echo :*)",
+      "Bash(grep :*)",
+      "Bash(uv run :*)",
+      "Bash(python:*)",
+      "Bash(uv run python:*)",
+      "Bash(timeout 3 uv run:*)",
+      "Bash(make migrations:*)",
+      "Bash(ls:*)",
+      "Bash(uv pip:*)",
+      "WebSearch",
+      "Bash(xargs cat:*)",
+      "Bash(uv run celery:*)",
+      "Bash(docker compose build:*)",
+      "Bash(pnpm install)",
+      "Bash(docker compose run:*)",
+      "Bash(docker compose:*)",
+      "Bash(cat :*)",
+      "Bash(curl :*)",
+      "Bash(find :*)",
+      "Bash(docker exec :*)",
+      "Bash(pnpm :*)",
+      "Bash(pnpx :*)",
+      "Bash(pnpm storybook:*)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "enabledPlugins": {
+    "ralph-loop@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bunx -y ccstatusline@latest",
+    "padding": 0
+  }
+}
