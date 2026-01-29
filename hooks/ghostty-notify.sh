@@ -24,20 +24,22 @@ else
     TERM_BUNDLE="com.mitchellh.ghostty"  # fallback
 fi
 
-# Ghostty OSC 9 notification (if in Ghostty)
 if [ -n "$GHOSTTY_RESOURCES_DIR" ]; then
+    # OSC 9 notification - Ghostty tracks originating surface for click-to-focus
+    # Note: Split pane targeting pending upstream fix (ghostty-org/ghostty#10445)
     printf '\e]9;%s\a' "$MESSAGE" > /dev/tty 2>/dev/null
-fi
-
-# macOS notification with click-to-focus
-if command -v terminal-notifier &> /dev/null; then
-    terminal-notifier \
-        -title "Claude Code" \
-        -message "$MESSAGE" \
-        -appIcon "/Applications/Claude.app/Contents/Resources/electron.icns" \
-        -activate "$TERM_BUNDLE" \
-        -sound default
-else
-    # Fallback to osascript (no click handling)
-    osascript -e "display notification \"$MESSAGE\" with title \"Claude Code\" sound name \"default\""
+    # Play notification sound (OSC 9 is silent)
+    afplay /System/Library/Sounds/Glass.aiff &
+elif [ -n "$ITERM_SESSION_ID" ] || [ "$TERM_PROGRAM" = "Apple_Terminal" ]; then
+    # Other terminals: use terminal-notifier or osascript fallback
+    if command -v terminal-notifier &> /dev/null; then
+        terminal-notifier \
+            -title "Claude Code" \
+            -message "$MESSAGE" \
+            -appIcon "/Applications/Claude.app/Contents/Resources/electron.icns" \
+            -activate "$TERM_BUNDLE" \
+            -sound default
+    else
+        osascript -e "display notification \"$MESSAGE\" with title \"Claude Code\" sound name \"default\""
+    fi
 fi
