@@ -6,7 +6,7 @@ Custom configuration for [Claude Code](https://docs.anthropic.com/en/docs/claude
 
 - `settings.json` - Global settings, permissions, hooks, plugins
 - `CLAUDE.md` - Global instructions for Claude behavior
-- `hooks/ghostty-notify.sh` - Ghostty notification script with click-to-focus
+- `hooks/ghostty-notify.sh` - macOS notification with click-to-focus terminal
 
 ## Quick Setup
 
@@ -33,7 +33,7 @@ chmod +x ~/.claude/hooks/ghostty-notify.sh
 
 ### Hooks
 
-**Ghostty Desktop Notifications** - OSC 9 notification with click-to-focus + audio:
+**Desktop Notifications** - macOS alert with click-to-focus terminal:
 ```json
 {
   "Notification": [{
@@ -47,7 +47,18 @@ chmod +x ~/.claude/hooks/ghostty-notify.sh
 }
 ```
 
-The script (`hooks/ghostty-notify.sh`) uses OSC 9 escape sequences for native Ghostty notifications. Clicking the notification focuses the terminal window. Falls back to audio-only if not in Ghostty.
+The script (`hooks/ghostty-notify.sh`) provides:
+- macOS notification with Claude icon via `terminal-notifier`
+- Click-to-focus current terminal (Ghostty/iTerm/Terminal.app)
+- OSC 9 notification for Ghostty's native notifications
+- Notification sound (no separate audio)
+
+**Requires:**
+```bash
+brew install terminal-notifier
+```
+
+Then enable notifications in **System Settings > Notifications > terminal-notifier**.
 
 ### Permissions
 
